@@ -9,13 +9,13 @@ To run this, clone this repo and then run through Node or NPM.
 ### Via NPM
 
 ```shell
-interest> npm start -- --principle 1000 --interest 5.1 --yearly-add 500
+npm start -- --principle 1000 --interest 5.1 --yearly-add 500
 ```
 
 ### Via Node
 
 ```shell
-interest> node ./index.js --principle 1000 --interest 5.1 --yearly-add 500
+node ./index.js --principle 1000 --interest 5.1 --yearly-add 500
 ```
 
 ### Options
