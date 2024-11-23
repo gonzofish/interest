@@ -7,8 +7,8 @@ const run = () => {
 
 const parseArgs = () => {
   const [__exec, __file, ...rawArgs] = process.argv;
-  const nameArgRegex = /(\-[a-z]|\-\-[a-z]+)((=|\s)\d+)?/g;
-  const matches = rawArgs.join(' ').match(nameArgRegex);
+  const namedArgRegex = /(^|\s)(\-[a-z]|\-\-([a-z]+(\-[a-z]+)?))((=|\s)\d+)?/g;
+  const matches = rawArgs.join(' ').match(namedArgRegex);
   const args = {
     omitMonthly: false,
     omitYearly: false,
@@ -21,7 +21,7 @@ const parseArgs = () => {
 
   matches.forEach((match) => {
     const splitter = match.includes('=') ? '=' : /\s/;
-    const parts = match.split(splitter);
+    const parts = match.trim().split(splitter);
     const [arg, value] = parts;
     let normalName = getNormalizedArgName(arg);
     let normalValue = parseFloat(value);
@@ -61,13 +61,19 @@ const getNormalizedArgName = (arg) => {
   switch (stripped) {
     case 'a':
     case 'add':
+    case 'yearly-add':
+    case 'ya':
       return 'yearlyAdd';
     case 'i':
     case 'interest':
+    case 'yi':
+    case 'yearly-interest':
       return 'yearlyInterest';
     case 'ma':
+    case 'monthly-add':
       return 'monthlyAdd';
     case 'mi':
+    case 'monthly-interest':
       return 'monthlyInterest';
     case 'om':
     case 'omit-monthly':
